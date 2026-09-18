@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPlace · Execução iPhone FY26Q4</title>
+<style>
+:root{
+  --bg:#f5f5f7; --card:#fff; --ink:#1d1d1f; --ink2:#6e6e73; --line:#d2d2d7;
+  --ok:#1d8348; --okbg:#e3f5ea; --pend:#9a5b00; --pendbg:#fff3e0;
+  --nr:#b3261e; --nrbg:#fdecea; --na:#6e6e73; --nabg:#f0f0f2;
+  --blue:#0071e3; --apr:#5856d6; --aprbg:#ecebfb; --aar:#0a84c1; --aarbg:#e5f3fa;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#000;--card:#1c1c1e;--ink:#f5f5f7;--ink2:#98989d;--line:#38383a;
+  --okbg:#0e2f1c;--ok:#4ade80;--pendbg:#3a2a05;--pend:#fbbf24;--nrbg:#3a1210;--nr:#f87171;
+  --nabg:#2c2c2e;--na:#98989d;--aprbg:#26244d;--apr:#a5a3f5;--aarbg:#0b2c3d;--aar:#6cc4e8;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1580px;margin:0 auto;padding:24px 20px 64px}
+
+header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+h1{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:0 0 4px}
+.sub{color:var(--ink2);font-size:13px}
+.stamp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow);font-size:12px;line-height:1.6}
+.stamp b{font-size:13px}
+.stamp .lbl{color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;font-size:10px;font-weight:600}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+.kpi .n{font-size:30px;font-weight:700;letter-spacing:-1px;line-height:1.1}
+.kpi .t{font-size:12px;color:var(--ink2);margin-top:3px}
+.kpi .t2{font-size:11px;color:var(--ink2);opacity:.8}
+.kpi.ok .n{color:var(--ok)} .kpi.pend .n{color:var(--pend)} .kpi.nr .n{color:var(--nr)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+.card>h2{margin:0;padding:13px 16px;font-size:14px;font-weight:700;border-bottom:1px solid var(--line)}
+.card>h2 small{font-weight:400;color:var(--ink2);font-size:11.5px}
+.card .body{padding:14px 16px}
+
+table.el{width:100%;border-collapse:collapse;font-size:13px}
+table.el th,table.el td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+table.el th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink2)}
+table.el tr:last-child td{border-bottom:0}
+table.el td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;width:64px}
+.bar{height:8px;border-radius:6px;background:var(--nabg);overflow:hidden;display:flex;min-width:130px}
+.bar i{display:block;height:100%}
+.bar .b-ok{background:var(--ok)} .bar .b-pend{background:#e8912d} .bar .b-nr{background:#d9584f}
+
+.fprimary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fsecondary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.f{display:flex;flex-direction:column;gap:5px}
+.f label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink2)}
+.fprimary .f label{color:var(--ink)}
+select,input[type=search]{font:inherit;font-size:13px;padding:7px 9px;border:1px solid var(--line);
+  border-radius:9px;background:var(--card);color:var(--ink);width:100%}
+.fprimary select{padding:9px 11px;font-size:13.5px;font-weight:600;border-width:1.5px;
+  border-color:color-mix(in srgb,var(--blue) 35%,var(--line));
+  background:color-mix(in srgb,var(--blue) 4%,var(--card))}
+select:focus,input:focus{outline:2px solid var(--blue);outline-offset:-1px;border-color:var(--blue)}
+.fdiv{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.fdiv span{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink2)}
+.fdiv:after{content:"";height:1px;background:var(--line);flex:1}
+.frow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.btn{font:inherit;font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:9px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--blue);color:var(--blue)}
+.count{font-size:12.5px;color:var(--ink2);margin-left:auto}
+.count b{color:var(--ink)}
+
+.tblwrap{overflow-x:auto}
+table.grid{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;white-space:nowrap}
+table.grid thead th{position:sticky;top:0;z-index:3;background:var(--card);
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink2);font-weight:700;
+  padding:9px 10px;text-align:left;border-bottom:1px solid var(--line)}
+table.grid tbody td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.grid tbody tr:hover td{background:color-mix(in srgb,var(--blue) 5%,transparent)}
+table.grid td.c,table.grid th.c{text-align:center}
+.sticky1{position:sticky;left:0;z-index:2;background:var(--card)}
+table.grid tbody tr:hover .sticky1{background:color-mix(in srgb,var(--blue) 5%,transparent)}
+.mono{font-variant-numeric:tabular-nums;color:var(--ink2)}
+.nm{font-weight:600}
+.sep{border-left:2px solid var(--line)}
+
+.b{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.2px}
+.b-ok{background:var(--okbg);color:var(--ok)}
+.b-pend{background:var(--pendbg);color:var(--pend)}
+.b-nr{background:var(--nrbg);color:var(--nr)}
+.b-na{background:var(--nabg);color:var(--na)}
+.b-tl{background:var(--nabg);color:var(--ink);font-weight:600;font-size:10.5px}
+.b-apr{background:var(--aprbg);color:var(--apr)}
+.b-aar{background:var(--aarbg);color:var(--aar)}
+.dot{display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;font-size:12px;font-weight:800;text-align:center}
+.d-ok{background:var(--okbg);color:var(--ok)} .d-pend{background:var(--pendbg);color:var(--pend)}
+.d-nr{background:var(--nrbg);color:var(--nr)} .d-na{background:var(--nabg);color:var(--na)}
+.miss{font-size:11.5px;color:var(--nr);white-space:normal;min-width:190px;max-width:300px;display:inline-block}
+.miss.okall{color:var(--ok);font-weight:600}
+.miss.nrall{color:var(--ink2)}
+
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--ink2);padding:12px 16px}
+.legend div{display:flex;align-items:center;gap:7px}
+.empty{padding:40px 20px;text-align:center;color:var(--ink2)}
+.note{font-size:11.5px;color:var(--ink2);padding:0 16px 14px;line-height:1.6}
+.note code{background:var(--nabg);padding:1px 5px;border-radius:4px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>iPlace · Execução iPhone FY26Q4</h1>
+    <div class="sub" id="hdrSub"></div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Última atualização</span><br><b id="stBuild"></b></div>
+  </div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="card">
+  <h2>Resumo por Programa <small>APR = Branded · AAR = Non-Branded</small></h2>
+  <div class="body"><table class="el"><thead><tr>
+    <th style="width:210px">Programa</th><th>Progresso</th>
+    <th class="n">Lojas</th><th class="n">OK</th><th class="n">Pend.</th>
+    <th class="n">S/ resp.</th><th class="n">%&nbsp;report</th>
+  </tr></thead><tbody id="tProg"></tbody></table></div>
+</div>
+
+<div class="card">
+  <h2>Resumo por Regional <small>distribuição de POS Status · respeita os filtros</small></h2>
+  <div class="body"><table class="el"><thead><tr>
+    <th style="width:210px">Regional</th><th>Progresso</th>
+    <th class="n">Lojas</th><th class="n">APR</th><th class="n">AAR</th>
+    <th class="n">OK</th><th class="n">Pend.</th><th class="n">S/ resp.</th><th class="n">%&nbsp;report</th>
+  </tr></thead><tbody id="tReg"></tbody></table></div>
+</div>
+
+<div class="card">
+  <h2>Resumo por elemento <small>base = lojas que reportaram</small></h2>
+  <div class="body"><table class="el"><thead><tr>
+    <th style="width:190px">Elemento</th><th>Progresso</th>
+    <th class="n">OK</th><th class="n">Pend.</th><th class="n">S/ resp.</th><th class="n">%&nbsp;OK</th>
+  </tr></thead><tbody id="tEl"></tbody></table></div>
+</div>
+
+<div class="card">
+  <h2>Filtros</h2>
+  <div class="body">
+    <div class="fprimary" id="fPri"></div>
+    <div class="fdiv"><span>Outros</span></div>
+    <div class="fsecondary" id="fSec"></div>
+    <div class="frow"><button class="btn" id="clr">Limpar filtros</button>
+      <span class="count" id="cnt"></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Resultado por loja <small>ordenado por Programa, POS Status, Regional, Loja</small></h2>
+  <div class="tblwrap"><table class="grid">
+    <thead><tr>
+      <th class="sticky1">Loja</th><th>Apple ID</th><th>Cidade</th>
+      <th class="sep c">Programa</th><th>Regional</th><th>Data de Execução</th>
+      <th class="sep c">POS Status</th>
+      <th class="c sep" id="thEl"></th>
+      <th class="sep">Pendências</th>
+    </tr></thead>
+    <tbody id="tBody"></tbody>
+  </table></div>
+  <div class="legend">
+    <div><span class="b b-ok">OK</span> executado</div>
+    <div><span class="b b-pend">PENDENTE</span> reportado com alguma pendência de demo, material ou gráfico</div>
+    <div><span class="b b-nr">SEM RESPOSTA</span> loja não reportou</div>
+  </div>
+  <div class="note">
+    <b>POS Status:</b> <code>0</code> loja não reportou · <code>1</code> reportou com itens pendentes ·
+    <code>2</code> OK, execução 100%.<br>
+    <b>Programa:</b> <code>APR</code> lojas Branded · <code>AAR</code> lojas Non-Branded.
+  </div>
+</div>
+
+</div>
+
+<script>
+const DATA = {"stores":[{"id":"1710620","name":"IPLACE SHOPPING MUELLER SC","prog":"APR","city":"JOINVILLE","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"OK","hero":"OK","mesa":"OK"}},{"id":"854879","name":"IPLACE RIBEIRAO SHOPPING","prog":"APR","city":"RIBEIRAO PRETO","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"OK","hero":"OK","mesa":"OK"}},{"id":"560581","name":"IPLACE BOURBON SHOPPING","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"649825","name":"IPLACE JK IGUATEMI","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"604809","name":"IPLACE MOOCA PLAZA SHOPPING","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991533","name":"IPLACE SHOPPING ANALIA FRANCO","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"700435","name":"IPLACE SHOPPING CENTER NORTE","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1544016","name":"IPLACE SHOPPING CIDADE SAO PAULO","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991543","name":"IPLACE SHOPPING EL DORADO","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991549","name":"IPLACE SHOPPING IBIRAPUERA","prog":"APR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"423034","name":"IPLACE IGUATEMI PORTO ALEGRE","prog":"APR","city":"PORTO ALEGRE","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"712864","name":"IPLACE SHOPPING MANAIRA","prog":"APR","city":"JOAO PESSOA","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"735334","name":"IPLACE SHOPPING MIDWAY MALL NATAL","prog":"APR","city":"NATAL","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1738079","name":"IPLACE SHOPPING RIO MAR SE","prog":"APR","city":"ARACAJU","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"479954","name":"IPLACE BH SHOPPING","prog":"APR","city":"BELO HORIZONTE","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991538","name":"IPLACE IGUATEMI CAMPINAS","prog":"APR","city":"CAMPINAS","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"870251","name":"IPLACE PARQUE DOM PEDRO SHOPPING CAMPINAS","prog":"APR","city":"CAMPINAS","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1034945","name":"IPLACE PATIO SAVASSI BH","prog":"APR","city":"BELO HORIZONTE","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991552","name":"IPLACE IGUATEMI ALPHAVILLE","prog":"APR","city":"BARUERI","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"580751","name":"IPLACE PARK SHOPPING SAO CAETANO","prog":"APR","city":"SAO CAETANO DO SUL","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1152901","name":"IPLACE PRAIAMAR SHOPPING SANTOS","prog":"APR","city":"SANTOS","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1050123","name":"IPLACE SHOPPING INTERLAGOS","prog":"APR","city":"SAO PAULO","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"2382660","name":"IPLACE BARRA SHOPPING RIO","prog":"APR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"806201","name":"IPLACE PLAZA SHOPPING NITEROI","prog":"APR","city":"NITEROI","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"2392712","name":"IPLACE FLAMBOYANT SHOPPING","prog":"APR","city":"GOIANIA","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"462902","name":"IPLACE PARK SHOPPING BRASILIA","prog":"APR","city":"BRASILIA","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"596155","name":"IPLACE SHOPPING CAMPO GRANDE","prog":"APR","city":"CAMPO GRANDE","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1760321","name":"IPLACE SHOPPING METROPOLE","prog":"APR","city":"ANANINDEUA","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"853412","name":"IPLACE PLAZA SUL SAO PAULO","prog":"AAR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"964969","name":"IPLACE BALNEARIO SHOPPING CAMBORIU","prog":"AAR","city":"BALNEARIO CAMBORIU","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"2115637","name":"IPLACE MOBILE JOCKEY PLAZA PR","prog":"AAR","city":"CURITIBA","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"814014","name":"IPLACE RIOPRETO SHOPPING CENTER","prog":"AAR","city":"SAO JOSE DO RIO PRETO","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"849429","name":"IPLACE CENTER VALE SHOPPING","prog":"AAR","city":"SAO JOSE DOS CAMPOS","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"1124479","name":"IPLACE MOGI SHOPPING","prog":"AAR","city":"MOGI DAS CRUZES","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"1060245","name":"IPLACE SHOPPING CONTAGEM","prog":"AAR","city":"CONTAGEM","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"2380810","name":"IPLACE SHOPPING VITORIA","prog":"AAR","city":"VITORIA","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":2,"el":{"promax":"OK","pro":"OK","mat3d":"NA","hero":"OK","mesa":"OK"}},{"id":"1066486","name":"IPLACE SHOPPING ARICANDUVA","prog":"AAR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1019308","name":"IPLACE SHOPPING METRO TATUAPE","prog":"AAR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"891118","name":"IPLACE SHOPPING TAMBORE","prog":"AAR","city":"BARUERI","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"854894","name":"IPLACE TIETE PLAZA SHOPPING","prog":"AAR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"991551","name":"IPLACE VILLA LOBOS","prog":"AAR","city":"SAO PAULO","regional":"CÁTIA VILELA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1811175","name":"IPLACE MOBILE PASSO FUNDO SHOPP","prog":"AAR","city":"PASSO FUNDO","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1691014","name":"IPLACE MOBILE PRACA NOVA SANTA MARIA","prog":"AAR","city":"SANTA MARIA","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1057125","name":"IPLACE PALLADIUM CURITIBA","prog":"AAR","city":"CURITIBA","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1706573","name":"IPLACE PARK SHOPPING CANOAS RS","prog":"AAR","city":"CANOAS","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1055206","name":"IPLACE PATIO BATEL CURITIBA","prog":"AAR","city":"CURITIBA","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"870671","name":"IPLACE PRAIA DE BELAS PORTO ALEGRE","prog":"AAR","city":"PORTO ALEGRE","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1062494","name":"IPLACE PREMIUM NOVO HAMBURGO","prog":"AAR","city":"NOVO HAMBURGO","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1050130","name":"IPLACE SHOPPING PELOTAS","prog":"AAR","city":"PELOTAS","regional":"DANIEL ALBACH","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1811265","name":"IPLACE MOBILE PATIO OLINDA","prog":"AAR","city":"OLINDA","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1141493","name":"IPLACE PARQUE SHOPPING MACEIO","prog":"AAR","city":"MACEIO","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1020808","name":"IPLACE PLAZA CASA FORTE RECIFE","prog":"AAR","city":"RECIFE","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1559317","name":"IPLACE SHOPPING BARRA SALVADOR","prog":"AAR","city":"SALVADOR","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"2379427","name":"IPLACE SHOPPING DA BAHIA","prog":"AAR","city":"SALVADOR","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1020792","name":"IPLACE SHOPPING GUARARAPES","prog":"AAR","city":"JABOATAO DOS GUARARAPES","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1024680","name":"IPLACE SHOPPING TACARUNA RECIFE","prog":"AAR","city":"RECIFE","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1710625","name":"IPLACE TIVOLI SHOPPING","prog":"AAR","city":"SANTA BARBARA DOESTE","regional":"JERRISON FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1066481","name":"IPLACE INTERNACIONAL GUARULHOS","prog":"AAR","city":"GUARULHOS","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1960775","name":"IPLACE MOBILE SHOPPIN PARQUE MAIA","prog":"AAR","city":"GUARULHOS","regional":"JULIANA PEDROSA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"867487","name":"IPLACE SHOPPING ABC SANTO ANDRE","prog":"AAR","city":"SANTO ANDRE","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"849473","name":"IPLACE SHOPPING IGUATEMI ESPLANADA","prog":"AAR","city":"VOTORANTIM","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1718416","name":"IPLACE SHOPPING UNIAO DE OSASCO","prog":"AAR","city":"OSASCO","regional":"JÉSSICA FARIAS","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1679272","name":"IPLACE MOBILE CARIOCA SHOPPING","prog":"AAR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1031109","name":"IPLACE NORTE SHOPPING RIO DE JANEIRO","prog":"AAR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1032692","name":"IPLACE SHOPPING GRANDE RIO","prog":"AAR","city":"SAO JOAO DE MERITI","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1544019","name":"IPLACE SHOPPING NOVA AMERICA RIO","prog":"AAR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1009983","name":"IPLACE SHOPPING TIJUCA RIO DE JANEIRO","prog":"AAR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1007564","name":"IPLACE WEST SHOPPING RIO DE JANEIRO","prog":"AAR","city":"RIO DE JANEIRO","regional":"JÉSSICA FARIAS (INTERINA)","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"4255821","name":"IPLACE ESTACAO CUIABA","prog":"AAR","city":"CUIABA","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1665959","name":"IPLACE PANTANAL SHOPPING","prog":"AAR","city":"CUIABA","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"1671869","name":"IPLACE PARQUE SHOPPING BELEM","prog":"AAR","city":"BELEM","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}},{"id":"964968","name":"IPLACE SHOPPING DA ILHA SAO LUIS","prog":"AAR","city":"SAO LUIS","regional":"LUÍS HENRIQUE GARCIA","timeline":"D-1 (22:00 - 23:00)","ps":0,"el":{"promax":"NR","pro":"NR","mat3d":"NR","hero":"NR","mesa":"NR"}}],"meta":{"npi":"iPhone | FY26Q4","buildDt":"17/09/2026 22:08","elements":[{"k":"promax","l":"iPhone 18 Pro Max"},{"k":"pro","l":"iPhone 18 Pro"},{"k":"mat3d","l":"3D Materiais"},{"k":"hero","l":"2D Gráfico Hero"},{"k":"mesa","l":"2D Gráfico Mesa"}],"progs":{"APR":"Branded","AAR":"Non-Branded"}}};
+const M = DATA.meta, EL = M.elements, ROWS = DATA.stores;
+
+document.getElementById('hdrSub').textContent =
+  `${M.npi} · ${ROWS.length} lojas iPlace · APR (Branded) + AAR (Non-Branded)`;
+document.getElementById('stBuild').textContent = M.buildDt;
+
+const PS = {0:{k:'nr',short:'0 · Não reportou'},1:{k:'pend',short:'1 · Pendente'},2:{k:'ok',short:'2 · OK 100%'}};
+const ST = {OK:{c:'ok',t:'OK',d:'✓'},PEND:{c:'pend',t:'PENDENTE',d:'!'},
+            NR:{c:'nr',t:'SEM RESPOSTA',d:'—'},NA:{c:'na',t:'N/A',d:'·'}};
+
+const TL_ORDER = t => /^D-1/i.test(t) ? 0 : /LATE MORNING/i.test(t) ? 2 : /MORNING/i.test(t) ? 1
+                    : /AFTERNOON/i.test(t) ? 3 : /EVENING|NIGHT/i.test(t) ? 4 : 9;
+
+const PRIMARY = [
+  {k:'prog',    lbl:'Programa', fixed:[['APR','APR · Branded'],['AAR','AAR · Non-Branded']]},
+  {k:'regional',lbl:'Regional'},
+  {k:'timeline',lbl:'Data de Execução', sort:TL_ORDER},
+  {k:'ps',      lbl:'POS Status', fixed:[['0','0 · Não reportou'],['1','1 · Reportou c/ pendência'],['2','2 · OK 100%']]}
+];
+const SECONDARY = [{k:'city', lbl:'Cidade'}];
+
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct = (n,d) => d ? Math.round(n/d*100) : 0;
+
+function missingOf(s){
+  const m = EL.filter(e=>s.el[e.k]==='PEND').map(e=>e.l);
+  if(s.ps===0) return {txt:'Aguardando report da loja', cls:'nrall'};
+  if(!m.length) return {txt:'Nada pendente — 100% executado', cls:'okall'};
+  return {txt:'Falta: '+m.join(', '), cls:''};
+}
+
+function selectFor(f){
+  if(f.fixed) return `<select data-f="${f.k}"><option value="">Todos</option>
+    ${f.fixed.map(([v,l])=>`<option value="${v}">${esc(l)}</option>`).join('')}</select>`;
+  let vals=[...new Set(ROWS.map(r=>r[f.k]).filter(Boolean))];
+  vals.sort(f.sort ? (a,b)=>(f.sort(a)-f.sort(b))||a.localeCompare(b) : (a,b)=>a.localeCompare(b));
+  return `<select data-f="${f.k}"><option value="">Todos (${vals.length})</option>
+    ${vals.map(v=>`<option>${esc(v)}</option>`).join('')}</select>`;
+}
+
+document.getElementById('fPri').innerHTML =
+  PRIMARY.map(f=>`<div class="f"><label>${esc(f.lbl)}</label>${selectFor(f)}</div>`).join('');
+document.getElementById('fSec').innerHTML =
+  SECONDARY.map(f=>`<div class="f"><label>${esc(f.lbl)}</label>${selectFor(f)}</div>`).join('') +
+  `<div class="f"><label>Buscar loja / Apple ID</label>
+     <input type="search" data-f="q" placeholder="ex.: IGUATEMI"></div>`;
+
+// cabecalho dinamico dos elementos
+document.getElementById('thEl').outerHTML =
+  EL.map((e,i)=>`<th class="c${i===0?' sep':''}">${esc(e.l)}</th>`).join('');
+
+const ctrls=[...document.querySelectorAll('[data-f]')];
+const $=id=>document.getElementById(id);
+
+function current(){
+  const f={}; ctrls.forEach(c=>{const v=c.value.trim(); if(v) f[c.dataset.f]=v;});
+  return ROWS.filter(r=>{
+    for(const [k,v] of Object.entries(f)){
+      if(k==='q'){ const q=v.toLowerCase();
+        if(!(r.name.toLowerCase().includes(q)||r.id.includes(q)||r.city.toLowerCase().includes(q))) return false; }
+      else if(k==='ps'){ if(r.ps!==+v) return false; }
+      else if(r[k]!==v) return false;
+    }
+    return true;
+  });
+}
+
+function groupRows(list, keyFn, extra){
+  const g={}; list.forEach(r=>{ (g[keyFn(r)] ||= []).push(r); });
+  return Object.entries(g).sort((a,b)=> b[1].length-a[1].length || a[0].localeCompare(b[0]))
+    .map(([name,l])=>{
+      const t=l.length, ok=l.filter(r=>r.ps===2).length,
+            pd=l.filter(r=>r.ps===1).length, nr=l.filter(r=>r.ps===0).length;
+      return `<tr><td><b>${esc(name)}</b></td>
+        <td><div class="bar">
+          <i class="b-ok" style="width:${pct(ok,t)}%"></i>
+          <i class="b-pend" style="width:${pct(pd,t)}%"></i>
+          <i class="b-nr" style="width:${pct(nr,t)}%"></i></div></td>
+        <td class="n">${t}</td>
+        ${extra ? extra(l) : ''}
+        <td class="n" style="color:var(--ok)">${ok}</td>
+        <td class="n" style="color:var(--pend)">${pd}</td>
+        <td class="n" style="color:var(--nr)">${nr}</td>
+        <td class="n">${pct(ok+pd,t)}%</td></tr>`;
+    }).join('');
+}
+
+function render(){
+  const d=current(), n=d.length;
+  const c2=d.filter(r=>r.ps===2).length, c1=d.filter(r=>r.ps===1).length, c0=d.filter(r=>r.ps===0).length;
+  const apr=d.filter(r=>r.prog==='APR').length, aar=d.filter(r=>r.prog==='AAR').length;
+
+  $('kpis').innerHTML=`
+    <div class="kpi"><div class="n">${n}</div><div class="t">Lojas no filtro</div>
+      <div class="t2">de ${ROWS.length} iPlace</div></div>
+    <div class="kpi"><div class="n">${apr} <span style="font-size:15px;color:var(--ink2)">/ ${aar}</span></div>
+      <div class="t">APR / AAR</div><div class="t2">Branded / Non-Branded</div></div>
+    <div class="kpi ok"><div class="n">${c2}</div><div class="t">POS 2 · OK 100%</div>
+      <div class="t2">${pct(c2,n)}% do filtro</div></div>
+    <div class="kpi pend"><div class="n">${c1}</div><div class="t">POS 1 · Reportou c/ pendência</div>
+      <div class="t2">${pct(c1,n)}% do filtro</div></div>
+    <div class="kpi nr"><div class="n">${c0}</div><div class="t">POS 0 · Não reportou</div>
+      <div class="t2">${pct(c0,n)}% do filtro</div></div>
+    <div class="kpi"><div class="n">${pct(c1+c2,n)}%</div><div class="t">Taxa de report</div>
+      <div class="t2">${c1+c2} de ${n} lojas</div></div>`;
+
+  $('tProg').innerHTML = groupRows(d, r=>r.prog==='APR'?'APR · Branded':'AAR · Non-Branded')
+    || `<tr><td colspan="7" class="empty">Nenhuma loja com os filtros selecionados.</td></tr>`;
+
+  $('tReg').innerHTML = groupRows(d, r=>r.regional,
+      l=>`<td class="n" style="color:var(--apr)">${l.filter(r=>r.prog==='APR').length}</td>
+          <td class="n" style="color:var(--aar)">${l.filter(r=>r.prog==='AAR').length}</td>`)
+    || `<tr><td colspan="9" class="empty">Nenhuma loja com os filtros selecionados.</td></tr>`;
+
+  $('tEl').innerHTML = EL.map(e=>{
+    const app=d.filter(r=>r.el[e.k]!=='NA');
+    const ok=app.filter(r=>r.el[e.k]==='OK').length,
+          pd=app.filter(r=>r.el[e.k]==='PEND').length,
+          nr=app.filter(r=>r.el[e.k]==='NR').length, t=app.length;
+    return `<tr><td><b>${esc(e.l)}</b></td>
+      <td><div class="bar">
+        <i class="b-ok" style="width:${pct(ok,t)}%"></i>
+        <i class="b-pend" style="width:${pct(pd,t)}%"></i>
+        <i class="b-nr" style="width:${pct(nr,t)}%"></i></div></td>
+      <td class="n" style="color:var(--ok)">${ok}</td>
+      <td class="n" style="color:var(--pend)">${pd}</td>
+      <td class="n" style="color:var(--nr)">${nr}</td>
+      <td class="n">${pct(ok,t)}%</td></tr>`;
+  }).join('');
+
+  $('tBody').innerHTML = d.map(r=>{
+    const p=PS[r.ps], ms=missingOf(r);
+    return `<tr>
+      <td class="sticky1 nm">${esc(r.name)}</td>
+      <td class="mono">${esc(r.id)}</td><td>${esc(r.city)}</td>
+      <td class="sep c"><span class="b b-${r.prog==='APR'?'apr':'aar'}">${r.prog}</span></td>
+      <td>${esc(r.regional)}</td>
+      <td><span class="b b-tl">${esc(r.timeline)}</span></td>
+      <td class="sep c"><span class="b b-${p.k}">${esc(p.short)}</span></td>
+      ${EL.map((e,i)=>{const s=ST[r.el[e.k]];
+        return `<td class="c${i===0?' sep':''}" title="${esc(e.l)}: ${s.t}"><span class="dot d-${s.c}">${s.d}</span></td>`;}).join('')}
+      <td class="sep"><span class="miss ${ms.cls}">${esc(ms.txt)}</span></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="${8+EL.length}" class="empty">Nenhuma loja com os filtros selecionados.</td></tr>`;
+
+  $('cnt').innerHTML = `Exibindo <b>${n}</b> de <b>${ROWS.length}</b> lojas`;
+}
+
+ctrls.forEach(c=>c.addEventListener('input',render));
+$('clr').addEventListener('click',()=>{ctrls.forEach(c=>c.value='');render();});
+render();
+</script>
+</body>
+</html>
