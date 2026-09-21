@@ -728,10 +728,7 @@ function buildDcotaIplace(){
           <span class="kpi-s">${lt100Pct}%</span>
         </td>
         <td class="c"><span class="kpi-n">${lReq}</span></td>
-        <td class="c">
-          <span class="kpi-n" style="color:var(--ok)">${lOn}</span>
-          ${lExtra > 0 ? `<span class="kpi-s" title="${lRawOn} devices no DCOTA (${lExtra} sobressalente)">+${lExtra} extra</span>` : ''}
-        </td>
+        <td class="c"><span class="kpi-n" style="color:var(--ok)">${lOn}</span></td>
         <td class="c"><span class="kpi-n" style="color:${lMiss>0?'var(--nr)':'var(--ok)'}">${lMiss>0?lMiss:'0'}</span></td>
         <td class="td-prog">
           <div style="display:flex;align-items:center;gap:10px">
@@ -797,10 +794,7 @@ function buildDcotaIplace(){
             <span class="kpi-s">${lt100Pct}%</span>
           </td>
           <td class="c"><span class="kpi-n">${lReq}</span></td>
-          <td class="c">
-            <span class="kpi-n" style="color:var(--ok)">${lOn}</span>
-            ${lExtra > 0 ? `<span class="kpi-s" title="${lRawOn} devices no DCOTA (${lExtra} sobressalente)">+${lExtra} extra</span>` : ''}
-          </td>
+          <td class="c"><span class="kpi-n" style="color:var(--ok)">${lOn}</span></td>
           <td class="c"><span class="kpi-n" style="color:${lMiss>0?'var(--nr)':'var(--ok)'}">${lMiss>0?lMiss:'0'}</span></td>
           <td class="td-prog">
             <div style="display:flex;align-items:center;gap:10px">
